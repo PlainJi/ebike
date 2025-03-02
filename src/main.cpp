@@ -7,6 +7,7 @@ https://github.com/profi-max
 #include "lv_demo_widgets.h"
 #include <Arduino_GFX_Library.h>
 #include "touch.h"
+#include "ui/ui.h"
 
 // FOR ARDUINO Uncomment the line below if you wish debug messages
 //#define CORE_DEBUG_LEVEL 4
@@ -144,7 +145,7 @@ void setup()
 {
   Serial.begin(115200);
   lvgl_init();
-  lv_demo_widgets();
+  ui_init();
   ESP_LOGI(logTAG, "Setup done");
 }
 
