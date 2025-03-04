@@ -18,7 +18,7 @@ void gps_update() {
   while (gpsSerial.available() > 0) {
     char c = gpsSerial.read();
     gps.encode(c);
-    ESP_LOGI("gps_update", "recv %c", c);
+    // ESP_LOGI("gps_update", "recv %c", c);
   }
 
   // 打印解析后的 GPS 数据
