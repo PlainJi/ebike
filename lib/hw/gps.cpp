@@ -13,7 +13,7 @@ void gps_init() {
   ESP_LOGI("gps_init", "GPS 初始化完成，等待数据...");
 }
 
-void gps_update() {
+void update_gps() {
   // 检查是否有 GPS 数据
   while (gpsSerial.available() > 0) {
     char c = gpsSerial.read();

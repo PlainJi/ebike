@@ -2,6 +2,6 @@
 #define _GPS_H_
 
 void gps_init();
-void gps_update();
+void update_gps();
 
 #endif

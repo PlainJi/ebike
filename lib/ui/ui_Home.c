@@ -43,8 +43,9 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_text_font(ui_Label_kmh1, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Slider_Speed = lv_slider_create(ui_Home);
-    lv_slider_set_range(ui_Slider_Speed, 0, 30);
-    lv_slider_set_value(ui_Slider_Speed, 15, LV_ANIM_OFF);
+    lv_slider_set_range(ui_Slider_Speed, 0, 40);
+    lv_slider_set_mode(ui_Slider_Speed, LV_SLIDER_MODE_RANGE);
+    lv_slider_set_value(ui_Slider_Speed, 25, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_Slider_Speed) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider_Speed, 0,
                                                                                                  LV_ANIM_OFF);
     lv_obj_set_width(ui_Slider_Speed, 123);
@@ -63,8 +64,8 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_bg_opa(ui_Slider_Speed, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
     ui_Slider_Battery = lv_slider_create(ui_Home);
-    lv_slider_set_range(ui_Slider_Battery, 0, 30);
-    lv_slider_set_value(ui_Slider_Battery, 50, LV_ANIM_OFF);
+    lv_slider_set_mode(ui_Slider_Battery, LV_SLIDER_MODE_RANGE);
+    lv_slider_set_value(ui_Slider_Battery, 15, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_Slider_Battery) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider_Battery, 0,
                                                                                                    LV_ANIM_OFF);
     lv_obj_set_width(ui_Slider_Battery, 106);
