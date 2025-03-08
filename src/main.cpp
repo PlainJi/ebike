@@ -1,8 +1,7 @@
 #include <esp32-hal.h>
 #include "hw/display.h"
 #include "hw/sdcard.h"
-#include "hw/aht_bmp.h"
-#include "hw/imu.h"
+#include "hw/aht_bmp_imu.h"
 #include "hw/gps.h"
 #include "ui/ui.h"
 
@@ -18,10 +17,12 @@ void task_i2c_device(void *pvParameters) {
   char temp_str[3] = {0};
   int max_temp = 50;
   while (1) {
-    update_aht();
-    update_bmp();
-    update_imu();
-    imu_print_result();
+    aht_update();
+    aht_print();
+    bmp_update();
+    bmp_print();
+    imu_update();
+    imu_print();
     vTaskDelay(1000 / portTICK_PERIOD_MS);
     ESP_LOGI("task", "i2c device");
 
@@ -60,8 +61,7 @@ void setup()
 
   sd_init();
   display_init();
-  aht_bmp_init();
-  imu_init();
+  aht_bmp_imu_init();
   gps_init();
   lvgl_init();
   ui_init();
