@@ -11,7 +11,7 @@
 - IO_5  SCL
 - IO_6  SDA
 
-# SD CARD
+# SD CARD HSPI
 - IO_10  TF_CS  
 - IO_11  TF_MISO  
 - IO_12  TF_CLK  

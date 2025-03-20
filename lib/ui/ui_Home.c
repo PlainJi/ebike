@@ -44,8 +44,7 @@ void ui_Home_screen_init(void)
 
     ui_Slider_Speed = lv_slider_create(ui_Home);
     lv_slider_set_range(ui_Slider_Speed, 0, 40);
-    lv_slider_set_mode(ui_Slider_Speed, LV_SLIDER_MODE_RANGE);
-    lv_slider_set_value(ui_Slider_Speed, 25, LV_ANIM_OFF);
+    lv_slider_set_value(ui_Slider_Speed, 0, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_Slider_Speed) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider_Speed, 0,
                                                                                                  LV_ANIM_OFF);
     lv_obj_set_width(ui_Slider_Speed, 123);
@@ -64,8 +63,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_bg_opa(ui_Slider_Speed, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
     ui_Slider_Battery = lv_slider_create(ui_Home);
-    lv_slider_set_mode(ui_Slider_Battery, LV_SLIDER_MODE_RANGE);
-    lv_slider_set_value(ui_Slider_Battery, 15, LV_ANIM_OFF);
+    lv_slider_set_value(ui_Slider_Battery, 0, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_Slider_Battery) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider_Battery, 0,
                                                                                                    LV_ANIM_OFF);
     lv_obj_set_width(ui_Slider_Battery, 106);
@@ -190,7 +188,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_Time_Home, 21);
     lv_obj_set_y(ui_Label_Time_Home, -1);
     lv_obj_set_align(ui_Label_Time_Home, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label_Time_Home, "11:45");
+    lv_label_set_text(ui_Label_Time_Home, "--:--");
     lv_obj_set_style_text_color(ui_Label_Time_Home, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Time_Home, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_Time_Home, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -220,7 +218,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_Temp, 8);
     lv_obj_set_y(ui_Label_Temp, 5);
     lv_obj_set_align(ui_Label_Temp, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_Temp, "-18");
+    lv_label_set_text(ui_Label_Temp, "--");
     lv_obj_set_style_text_color(ui_Label_Temp, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Temp, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_Label_Temp, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -243,7 +241,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_Humidity, 61);
     lv_obj_set_y(ui_Label_Humidity, 5);
     lv_obj_set_align(ui_Label_Humidity, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_Humidity, "50");
+    lv_label_set_text(ui_Label_Humidity, "--");
     lv_obj_set_style_text_color(ui_Label_Humidity, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Humidity, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_Label_Humidity, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1532,7 +1530,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Speed_Number_2, -32);
     lv_obj_set_y(ui_Speed_Number_2, 0);
     lv_obj_set_align(ui_Speed_Number_2, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Speed_Number_2, "32");
+    lv_label_set_text(ui_Speed_Number_2, "00");
     lv_obj_set_style_text_color(ui_Speed_Number_2, lv_color_hex(0xD56920), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Speed_Number_2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_Speed_Number_2, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -1541,10 +1539,10 @@ void ui_Home_screen_init(void)
     ui_Speed_Number_1 = lv_label_create(ui_Home);
     lv_obj_set_width(ui_Speed_Number_1, 180);
     lv_obj_set_height(ui_Speed_Number_1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Speed_Number_1, -38);
+    lv_obj_set_x(ui_Speed_Number_1, -37);
     lv_obj_set_y(ui_Speed_Number_1, 0);
     lv_obj_set_align(ui_Speed_Number_1, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Speed_Number_1, "32");
+    lv_label_set_text(ui_Speed_Number_1, "00");
     lv_obj_set_style_text_color(ui_Speed_Number_1, lv_color_hex(0xFFE69C), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Speed_Number_1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_Speed_Number_1, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);

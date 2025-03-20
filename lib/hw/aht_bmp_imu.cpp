@@ -1,4 +1,6 @@
 #include "aht_bmp_imu.h"
+#include "sdcard.h"
+
 #include <Adafruit_AHTX0.h>
 #include <Adafruit_BMP280.h>
 
@@ -14,6 +16,7 @@ static bool aht_ok = false;
 static bool bmp_ok = false;
 WeatherData weather_data;
 ImuData imu_data;
+static char temp_str[256] = {0};
 
 void aht_bmp_imu_init() {
   Wire1.begin(I2C1_SDA, I2C1_SCL);
@@ -71,8 +74,9 @@ void aht_update() {
 }
 
 void aht_print() {
-  ESP_LOGI("AHT温度 ", "%d °C", weather_data.temp_aht20);
-  ESP_LOGI("AHT湿度 ", "%d %%", weather_data.humidity);
+  snprintf(temp_str, sizeof(temp_str), "AHT %d °C %d %%", weather_data.temp_aht20, weather_data.humidity);
+  ESP_LOGI("aht_print", "%s", temp_str);
+  sd_write_str(KWRITE_I2C, temp_str);
 }
 
 void bmp_update() {
@@ -84,9 +88,10 @@ void bmp_update() {
 }
 
 void bmp_print() {
-    ESP_LOGI("BMP温度 ", "%d °C", weather_data.temp_bmp280);
-    ESP_LOGI("BMP压力 ", "%d Pa", weather_data.pressure);
-    ESP_LOGI("BMP高度 ", "%d m",  weather_data.altitude);
+  snprintf(temp_str, sizeof(temp_str), "BMP %d °C %d Pa %d m", 
+    weather_data.temp_bmp280, weather_data.pressure, weather_data.altitude);
+  ESP_LOGI("bmp_print", "%s", temp_str);
+  sd_write_str(KWRITE_I2C, temp_str);
 }
 
 void imu_update() {
@@ -94,7 +99,7 @@ void imu_update() {
   Wire1.beginTransmission(MPU6050_ADDR);
   Wire1.write(0x3B); // 从加速度计数据寄存器开始读取
   Wire1.endTransmission(false);
-  Wire1.requestFrom(MPU6050_ADDR, 14, true); // 读取 14 字节数据
+  Wire1.requestFrom(MPU6050_ADDR, 14, 1); // 读取 14 字节数据
 
   // 读取加速度计数据
   imu_data.ax = Wire1.read() << 8 | Wire1.read();
@@ -111,10 +116,12 @@ void imu_update() {
 }
 
 void imu_print() {
-  ESP_LOGI("imu", "Temp: %d | Accel: X=%d Y=%d Z=%d | Gyro: X=%d Y=%d Z=%d", 
+  snprintf(temp_str, sizeof(temp_str), "IMU Temp: %d | Accel: %d %d %d | Gyro: %d %d %d", 
     imu_data.temp_imu, \
     imu_data.ax, imu_data.ay, imu_data.az, \
     imu_data.gx, imu_data.gy, imu_data.gz);
+  ESP_LOGI("imu_print", "%s", temp_str);
+  sd_write_str(KWRITE_I2C, temp_str);
 }
 
 // void scan() {

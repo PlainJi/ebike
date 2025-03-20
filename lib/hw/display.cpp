@@ -19,7 +19,7 @@ Arduino_GFX *gfx = NULL;
 static const char* logTAG = "display";
 
 void display_init() {
-  bus = new Arduino_ESP32QSPI(45 /* cs */, 47 /* sck */, 21 /* d0 */, 48 /* d1 */, 40 /* d2 */, 39 /* d3 */);
+  bus = new Arduino_ESP32QSPI(45 /* cs */, 47 /* sck */, 21 /* d0 */, 48 /* d1 */, 40 /* d2 */, 39 /* d3 */, false);
   panel = new Arduino_NV3041A(bus, GFX_NOT_DEFINED /* RST */, 0 /* rotation */, true /* IPS */);
   gfx = new Arduino_Canvas(SCREEN_WIDTH /* width */, SCREEN_HEIGHT /* height */, panel);
 
@@ -89,15 +89,15 @@ void lvgl_init()
 {
   static lv_disp_draw_buf_t draw_buf;
   static lv_disp_drv_t disp_drv;
-  static lv_color_t disp_draw_buf[SCREEN_WIDTH * SCR_BUF_LEN];
-  //static lv_color_t disp_draw_buf2[SCREEN_WIDTH * SCR_BUF_LEN];
+  static lv_color_t disp_draw_buf[SCREEN_WIDTH * SCREEN_HEIGHT];
+  //static lv_color_t disp_draw_buf2[SCREEN_WIDTH * SCREEN_HEIGHT];
 
   lv_init();
 
   if (!disp_draw_buf)  ESP_LOGE(logTAG, "LVGL disp_draw_buf allocate failed!"); 
   else 
   {
-    lv_disp_draw_buf_init(&draw_buf, disp_draw_buf, NULL, SCREEN_WIDTH * SCR_BUF_LEN);
+    lv_disp_draw_buf_init(&draw_buf, disp_draw_buf, NULL, SCREEN_WIDTH * SCREEN_HEIGHT);
 
     /* Initialize the display */
     lv_disp_drv_init(&disp_drv);

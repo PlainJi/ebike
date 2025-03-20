@@ -43,7 +43,7 @@ void ui_Settings_screen_init(void)
     lv_obj_set_x(ui_Label_Time_Setting, 21);
     lv_obj_set_y(ui_Label_Time_Setting, -1);
     lv_obj_set_align(ui_Label_Time_Setting, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Label_Time_Setting, "11:45");
+    lv_label_set_text(ui_Label_Time_Setting, "--:--");
     lv_obj_set_style_text_color(ui_Label_Time_Setting, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Time_Setting, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_align(ui_Label_Time_Setting, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
