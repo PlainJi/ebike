@@ -17,7 +17,7 @@ SemaphoreHandle_t xRecoderMutex;
 static bool init_flag_gps = false;
 static bool init_flag_i2c = false;
 
-void sd_init() {
+bool sd_init() {
   xRecoderMutex = xSemaphoreCreateMutex();
   if (xRecoderMutex == NULL) {
     ESP_LOGI("setup", "Failed to create xRecoderMutex!");
@@ -29,7 +29,7 @@ void sd_init() {
   if (!SD.begin(VSPI_CS, customSPI)) {
   //if (!SD.begin(VSPI_CS)) {
     ESP_LOGI("sd_init", "初始化失败，请检查连接！");
-    return;
+    return false;
   }
   ESP_LOGI("sd_init", "初始化成功");
 
@@ -41,6 +41,7 @@ void sd_init() {
     init_flag_gps = true;
   } else {
     ESP_LOGE("sd_init", "GPS日志打开失败");
+    return false;
   }
 
   file_i2c = SD.open("/i2c.log", FILE_WRITE);
@@ -51,7 +52,10 @@ void sd_init() {
     init_flag_i2c = true;
   } else {
     ESP_LOGE("sd_init", "I2C日志打开失败");
+    return false;
   }
+
+  return true;
 }
 
 void sd_write_str(WRITE_TYPE write_type, const char *str) {

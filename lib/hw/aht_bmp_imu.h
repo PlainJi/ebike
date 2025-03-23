@@ -11,8 +11,9 @@ typedef struct _WeatherData {
 
 typedef struct _ImuData {
     int temp_imu;
-    int ax, ay, az;
-    int gx, gy, gz;
+    int is_moving;
+    double ax, ay, az;
+    double gx, gy, gz;
 }ImuData;
 
 extern WeatherData weather_data;

@@ -205,6 +205,11 @@ extern lv_obj_t * ui_Speed_Number_1;
 extern lv_obj_t * ui_Menu;
 void ui_event_BTN_Settings(lv_event_t * e);
 extern lv_obj_t * ui_BTN_Settings;
+extern lv_obj_t * ui_Image_Located;
+extern lv_obj_t * ui_Image_Locating;
+extern lv_obj_t * ui_Image_Parking;
+extern lv_obj_t * ui_Image_Sdcard_w;
+extern lv_obj_t * ui_Image_Sdcard;
 // CUSTOM VARIABLES
 
 // SCREEN: ui_Settings
@@ -244,6 +249,7 @@ extern lv_obj_t * ui_Label_Number6;
 extern lv_obj_t * ui_Menu1;
 void ui_event_BTN_Settings1(lv_event_t * e);
 extern lv_obj_t * ui_BTN_Settings1;
+extern lv_obj_t * ui_Label_Satellites;
 // CUSTOM VARIABLES
 
 // EVENTS
@@ -282,6 +288,11 @@ LV_IMG_DECLARE(ui_img_settings_bg_png);    // assets/settings_bg.png
 LV_IMG_DECLARE(ui_img_volume_on_png);    // assets/volume_on.png
 LV_IMG_DECLARE(ui_img_volume_off_png);    // assets/volume_off.png
 LV_IMG_DECLARE(ui_img_icn_x2_png);    // assets/icn_x2.png
+LV_IMG_DECLARE(ui_img_located);
+LV_IMG_DECLARE(ui_img_locating);
+LV_IMG_DECLARE(ui_img_parking);
+LV_IMG_DECLARE(ui_img_sdcard_w);
+LV_IMG_DECLARE(ui_img_sdcard);
 
 // FONTS
 LV_FONT_DECLARE(ui_font_Big);

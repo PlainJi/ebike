@@ -191,7 +191,7 @@ void ui_Home_screen_init(void)
     lv_label_set_text(ui_Label_Time_Home, "--:--");
     lv_obj_set_style_text_color(ui_Label_Time_Home, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Time_Home, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_Label_Time_Home, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label_Time_Home, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Label_SpeedX = lv_label_create(ui_Head_Group1);
     lv_obj_set_width(ui_Label_SpeedX, LV_SIZE_CONTENT);   /// 1
@@ -203,6 +203,54 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_text_color(ui_Label_SpeedX, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_SpeedX, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_SpeedX, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    // 
+    ui_Label_Satellites = lv_label_create(ui_Head_Group1);
+    lv_obj_set_width(ui_Label_Satellites, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Label_Satellites, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_Label_Satellites, 200);
+    lv_obj_set_y(ui_Label_Satellites, 0);
+    lv_obj_set_align(ui_Label_Satellites, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Label_Satellites, "-");
+    lv_obj_set_style_text_color(ui_Label_Satellites, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Label_Satellites, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Label_Satellites, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_Image_Located = lv_img_create(ui_Head_Group1);
+    lv_img_set_src(ui_Image_Located, &ui_img_located);
+    lv_obj_set_width(ui_Image_Located, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Image_Located, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Image_Located, LV_ALIGN_CENTER);
+    lv_obj_set_x(ui_Image_Located, 180);
+    lv_obj_set_y(ui_Image_Located, -1);
+    lv_obj_add_flag(ui_Image_Located, LV_OBJ_FLAG_HIDDEN);
+
+    ui_Image_Locating = lv_img_create(ui_Head_Group1);
+    lv_img_set_src(ui_Image_Locating, &ui_img_locating);
+    lv_obj_set_width(ui_Image_Locating, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Image_Locating, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Image_Locating, LV_ALIGN_CENTER);
+    lv_obj_set_x(ui_Image_Locating, 180);
+    lv_obj_set_y(ui_Image_Locating, -1);
+    lv_obj_add_flag(ui_Image_Locating, LV_OBJ_FLAG_HIDDEN);
+
+    ui_Image_Sdcard_w = lv_img_create(ui_Head_Group1);
+    lv_img_set_src(ui_Image_Sdcard_w, &ui_img_sdcard_w);
+    lv_obj_set_width(ui_Image_Sdcard_w, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Image_Sdcard_w, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Image_Sdcard_w, LV_ALIGN_CENTER);
+    lv_obj_set_x(ui_Image_Sdcard_w, 150);
+    lv_obj_set_y(ui_Image_Sdcard_w, -1);
+    lv_obj_add_flag(ui_Image_Sdcard_w, LV_OBJ_FLAG_HIDDEN);
+    
+    ui_Image_Parking = lv_img_create(ui_Head_Group1);
+    lv_img_set_src(ui_Image_Parking, &ui_img_parking);
+    lv_obj_set_width(ui_Image_Parking, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Image_Parking, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_Image_Parking, LV_ALIGN_CENTER);
+    lv_obj_set_x(ui_Image_Parking, 120);
+    lv_obj_set_y(ui_Image_Parking, -1);
+    //lv_obj_add_flag(ui_Image_Parking, LV_OBJ_FLAG_HIDDEN);
 
     ui_Group_Footer = lv_obj_create(ui_Home);
     lv_obj_set_height(ui_Group_Footer, 40);
@@ -430,7 +478,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_Trip_Number, 2);
     lv_obj_set_y(ui_Label_Trip_Number, 6);
     lv_obj_set_align(ui_Label_Trip_Number, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_Trip_Number, "18.6");
+    lv_label_set_text(ui_Label_Trip_Number, "0.0");
     lv_obj_set_style_text_color(ui_Label_Trip_Number, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Trip_Number, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_Trip_Number, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -441,7 +489,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_km2, -20);
     lv_obj_set_y(ui_Label_km2, -5);
     lv_obj_set_align(ui_Label_km2, LV_ALIGN_BOTTOM_RIGHT);
-    lv_label_set_text(ui_Label_km2, "km");
+    lv_label_set_text(ui_Label_km2, "m");
     lv_obj_set_style_text_color(ui_Label_km2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_km2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_km2, &ui_font_Small, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -474,7 +522,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_ODO_Number, 2);
     lv_obj_set_y(ui_Label_ODO_Number, 6);
     lv_obj_set_align(ui_Label_ODO_Number, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_ODO_Number, "287.7");
+    lv_label_set_text(ui_Label_ODO_Number, "0.0");
     lv_obj_set_style_text_color(ui_Label_ODO_Number, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_ODO_Number, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_ODO_Number, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -516,7 +564,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_AVG_Speed_Number, 2);
     lv_obj_set_y(ui_Label_AVG_Speed_Number, 6);
     lv_obj_set_align(ui_Label_AVG_Speed_Number, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_AVG_Speed_Number, "18.3");
+    lv_label_set_text(ui_Label_AVG_Speed_Number, "0.0");
     lv_obj_set_style_text_color(ui_Label_AVG_Speed_Number, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_AVG_Speed_Number, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_AVG_Speed_Number, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -558,7 +606,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_Max_Speed_Number, 2);
     lv_obj_set_y(ui_Label_Max_Speed_Number, 6);
     lv_obj_set_align(ui_Label_Max_Speed_Number, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_Max_Speed_Number, "42.7");
+    lv_label_set_text(ui_Label_Max_Speed_Number, "0.0");
     lv_obj_set_style_text_color(ui_Label_Max_Speed_Number, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_Max_Speed_Number, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_Max_Speed_Number, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -633,7 +681,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Label_AT_Time, 2);
     lv_obj_set_y(ui_Label_AT_Time, 6);
     lv_obj_set_align(ui_Label_AT_Time, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label_AT_Time, "01:20:45");
+    lv_label_set_text(ui_Label_AT_Time, "00:00:00");
     lv_obj_set_style_text_color(ui_Label_AT_Time, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Label_AT_Time, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Label_AT_Time, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);

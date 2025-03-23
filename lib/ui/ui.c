@@ -186,6 +186,12 @@ lv_obj_t * ui_Speed_Number_1;
 lv_obj_t * ui_Menu;
 void ui_event_BTN_Settings(lv_event_t * e);
 lv_obj_t * ui_BTN_Settings;
+lv_obj_t * ui_Label_Satellites;
+lv_obj_t * ui_Image_Located;
+lv_obj_t * ui_Image_Locating;
+lv_obj_t * ui_Image_Parking;
+lv_obj_t * ui_Image_Sdcard_w;
+lv_obj_t * ui_Image_Sdcard;
 // CUSTOM VARIABLES
 
 

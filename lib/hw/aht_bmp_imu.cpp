@@ -1,5 +1,6 @@
 #include "aht_bmp_imu.h"
 #include "sdcard.h"
+#include "ImuMotionDetector.h"
 
 #include <Adafruit_AHTX0.h>
 #include <Adafruit_BMP280.h>
@@ -10,12 +11,20 @@
 #define BMP280_ADDR 0x77
 #define MPU6050_ADDR 0x68
 
+static const char *tag = "i2c";
 Adafruit_AHTX0 aht;
 Adafruit_BMP280 bmp(&Wire1);
+WeatherData weather_data;
 static bool aht_ok = false;
 static bool bmp_ok = false;
-WeatherData weather_data;
+
+// 灵敏度常量
+#define ACCEL_SENSITIVITY (4096.0)  // ±8g 时的灵敏度 (LSB/g)
+#define GYRO_SENSITIVITY  (65.536)    // ±500°/s 时的灵敏度 (LSB/°/s)
+#define GRAVITY           (9.80665) // 重力加速度 (m/s²)
 ImuData imu_data;
+ImuMotionDetector moving_detector;
+
 static char temp_str[256] = {0};
 
 void aht_bmp_imu_init() {
@@ -25,29 +34,30 @@ void aht_bmp_imu_init() {
   int retry = 3;
   do {
     if (!aht.begin(&Wire1, 0, AHT20_ADDR)) {
-        ESP_LOGI("temp_init", "无法找到 AHT21 传感器，请检查连接！");
+        ESP_LOGI(tag, "无法找到 AHT21 传感器，请检查连接！");
     }
     delay(100);
   } while(retry--);
   if (retry) aht_ok = true;
-  ESP_LOGI("temp_init", "AHT21 传感器初始化完成");
+  ESP_LOGI(tag, "AHT21 传感器初始化完成");
 
   // 初始化BMP280
   retry = 3;
   do {
     if (!bmp.begin()) {
-      ESP_LOGI("temp_init", "无法找到 BMP280 传感器, 请检查连接！");
+      ESP_LOGI(tag, "无法找到 BMP280 传感器, 请检查连接！");
     }
     delay(100);
   } while(retry--);
   if (retry) bmp_ok = true;
-  ESP_LOGI("temp_init", "BMP280 传感器初始化完成");
+  ESP_LOGI(tag, "BMP280 传感器初始化完成");
 
   // 初始化 MPU6050
   Wire1.beginTransmission(MPU6050_ADDR);
   Wire1.write(0x6B); // 电源管理寄存器
   Wire1.write(0);    // 唤醒 MPU6050
   Wire1.endTransmission(true);
+
   // 配置加速度计和陀螺仪
   Wire1.beginTransmission(MPU6050_ADDR);
   Wire1.write(0x1B); // 陀螺仪配置寄存器
@@ -57,7 +67,18 @@ void aht_bmp_imu_init() {
   Wire1.write(0x1C); // 加速度计配置寄存器
   Wire1.write(0x10); // 设置加速度计量程为 ±8g
   Wire1.endTransmission(true);
-  ESP_LOGI("i2c_init", "IMU 传感器初始化完成");
+
+  // 设置运动检测阈值 (0-255)
+  // Wire1.beginTransmission(MPU6050_ADDR);
+  // Wire1.write(0x1F); // 运动检测阈值寄存器
+  // Wire1.write(20);   // 阈值 (根据需求调整)
+  // Wire1.endTransmission(true);
+  // 使能运动检测中断
+  // Wire1.beginTransmission(MPU6050_ADDR);
+  // Wire1.write(0x38); // 中断使能寄存器
+  // Wire1.write(0x40); // 使能运动检测中断
+  // Wire1.endTransmission(true);
+  ESP_LOGI(tag, "IMU 传感器初始化完成");
 
   memset(&weather_data, 0, sizeof(weather_data));
   memset(&imu_data, 0, sizeof(imu_data));
@@ -75,7 +96,7 @@ void aht_update() {
 
 void aht_print() {
   snprintf(temp_str, sizeof(temp_str), "AHT %d °C %d %%", weather_data.temp_aht20, weather_data.humidity);
-  ESP_LOGI("aht_print", "%s", temp_str);
+  ESP_LOGI(tag, "%s", temp_str);
   sd_write_str(KWRITE_I2C, temp_str);
 }
 
@@ -90,7 +111,7 @@ void bmp_update() {
 void bmp_print() {
   snprintf(temp_str, sizeof(temp_str), "BMP %d °C %d Pa %d m", 
     weather_data.temp_bmp280, weather_data.pressure, weather_data.altitude);
-  ESP_LOGI("bmp_print", "%s", temp_str);
+  ESP_LOGI(tag, "%s", temp_str);
   sd_write_str(KWRITE_I2C, temp_str);
 }
 
@@ -101,26 +122,32 @@ void imu_update() {
   Wire1.endTransmission(false);
   Wire1.requestFrom(MPU6050_ADDR, 14, 1); // 读取 14 字节数据
 
+  // 检查运动检测中断标志
+  // imu_data.is_moving = (Wire1.read() & 0x40) ? 1 : 0;
+
   // 读取加速度计数据
-  imu_data.ax = Wire1.read() << 8 | Wire1.read();
-  imu_data.ay = Wire1.read() << 8 | Wire1.read();
-  imu_data.az = Wire1.read() << 8 | Wire1.read();
+  imu_data.ax = (int16_t)(Wire1.read() << 8 | Wire1.read()) * GRAVITY / ACCEL_SENSITIVITY;
+  imu_data.ay = (int16_t)(Wire1.read() << 8 | Wire1.read()) * GRAVITY / ACCEL_SENSITIVITY;
+  imu_data.az = (int16_t)(Wire1.read() << 8 | Wire1.read()) * GRAVITY / ACCEL_SENSITIVITY;
 
   // 读取温度数据
-  imu_data.temp_imu = (Wire1.read() << 8 | Wire1.read()) / 340 + 36.53;
+  imu_data.temp_imu = (int)((Wire1.read() << 8 | Wire1.read()) / 340 + 36.53);
 
   // 读取陀螺仪数据
-  imu_data.gx = Wire1.read() << 8 | Wire1.read();
-  imu_data.gy = Wire1.read() << 8 | Wire1.read();
-  imu_data.gz = Wire1.read() << 8 | Wire1.read();
+  imu_data.gx = (int16_t)(Wire1.read() << 8 | Wire1.read()) / GYRO_SENSITIVITY;
+  imu_data.gy = (int16_t)(Wire1.read() << 8 | Wire1.read()) / GYRO_SENSITIVITY;
+  imu_data.gz = (int16_t)(Wire1.read() << 8 | Wire1.read()) / GYRO_SENSITIVITY;
+
+  moving_detector.addData(imu_data);
+  imu_data.is_moving = moving_detector.isMoving(0.01, 5.0);
 }
 
 void imu_print() {
-  snprintf(temp_str, sizeof(temp_str), "IMU Temp: %d | Accel: %d %d %d | Gyro: %d %d %d", 
-    imu_data.temp_imu, \
+  snprintf(temp_str, sizeof(temp_str), "IMU Temp: %d moving: %d | Accel: %.1lf %.1lf %.1lf | Gyro: %.1lf %.1lf %.1lf", 
+    imu_data.temp_imu, imu_data.is_moving, \
     imu_data.ax, imu_data.ay, imu_data.az, \
     imu_data.gx, imu_data.gy, imu_data.gz);
-  ESP_LOGI("imu_print", "%s", temp_str);
+  ESP_LOGI(tag, "%s", temp_str);
   sd_write_str(KWRITE_I2C, temp_str);
 }
 
