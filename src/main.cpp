@@ -63,6 +63,9 @@ void task_gps(void *pvParameters) {
   static double trip_distance = 0;
 
   ESP_LOGI("task", "gps");
+  vTaskDelay(1000/portTICK_PERIOD_MS);
+  ui_animation(ui_Slider_Speed, 0, 400, 1500, 1500, 200, 0, 0, _lv_slider_set_value);
+  ui_animation(ui_Slider_Battery, 0, 100, 1500, 1500, 200, 0, 0, _lv_slider_set_value);
   last_uptime =  millis() / 1000;
 
   while(1) {
@@ -102,11 +105,7 @@ void task_gps(void *pvParameters) {
       // update speed
       if ((int)gnss_data.speed != last_speed) {
         last_speed = (int)gnss_data.speed;
-
-        lv_slider_set_value(ui_Slider_Speed, (int)gnss_data.speed, LV_ANIM_ON);
-        sprintf(temp_str, "%d", (int)gnss_data.speed);
-        lv_label_set_text(ui_Speed_Number_1, temp_str);
-        lv_label_set_text(ui_Speed_Number_2, temp_str);
+        ui_animation_for_slider(ui_Slider_Speed, (int)gnss_data.speed*10, 1000);
         lv_slider_set_value(ui_Slider_Battery, (int)gnss_data.speed, LV_ANIM_ON);
       }
 
@@ -183,8 +182,8 @@ void setup()
     while (1);
   }
 
-  xTaskCreatePinnedToCore(task_gps, "task_gps", 4096, NULL, 1, &task_gps_, 1);
   xTaskCreatePinnedToCore(task_i2c_device, "task_i2c_device", 4096, NULL, 1, &task_i2c_device_, 0);
+  xTaskCreatePinnedToCore(task_gps, "task_gps", 4096, NULL, 1, &task_gps_, 1);
   ESP_LOGI("setup", "creat task finished.");
 }
 

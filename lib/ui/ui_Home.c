@@ -43,7 +43,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_text_font(ui_Label_kmh1, &ui_font_Medium, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Slider_Speed = lv_slider_create(ui_Home);
-    lv_slider_set_range(ui_Slider_Speed, 0, 40);
+    lv_slider_set_range(ui_Slider_Speed, 0, 400);
     lv_slider_set_value(ui_Slider_Speed, 0, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_Slider_Speed) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider_Speed, 0,
                                                                                                  LV_ANIM_OFF);
@@ -475,7 +475,7 @@ void ui_Home_screen_init(void)
     ui_Label_Trip_Number = lv_label_create(ui_Group_Trip);
     lv_obj_set_width(ui_Label_Trip_Number, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_Trip_Number, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_Trip_Number, 2);
+    lv_obj_set_x(ui_Label_Trip_Number, 0);
     lv_obj_set_y(ui_Label_Trip_Number, 6);
     lv_obj_set_align(ui_Label_Trip_Number, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_Trip_Number, "0.0");
@@ -519,7 +519,7 @@ void ui_Home_screen_init(void)
     ui_Label_ODO_Number = lv_label_create(ui_Group_ODO);
     lv_obj_set_width(ui_Label_ODO_Number, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_ODO_Number, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_ODO_Number, 2);
+    lv_obj_set_x(ui_Label_ODO_Number, 0);
     lv_obj_set_y(ui_Label_ODO_Number, 6);
     lv_obj_set_align(ui_Label_ODO_Number, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_ODO_Number, "0.0");
@@ -561,7 +561,7 @@ void ui_Home_screen_init(void)
     ui_Label_AVG_Speed_Number = lv_label_create(ui_Group_AVG_Speed);
     lv_obj_set_width(ui_Label_AVG_Speed_Number, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_AVG_Speed_Number, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_AVG_Speed_Number, 2);
+    lv_obj_set_x(ui_Label_AVG_Speed_Number, 0);
     lv_obj_set_y(ui_Label_AVG_Speed_Number, 6);
     lv_obj_set_align(ui_Label_AVG_Speed_Number, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_AVG_Speed_Number, "0.0");
@@ -603,7 +603,7 @@ void ui_Home_screen_init(void)
     ui_Label_Max_Speed_Number = lv_label_create(ui_Group_Max_Speed);
     lv_obj_set_width(ui_Label_Max_Speed_Number, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_Max_Speed_Number, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_Max_Speed_Number, 2);
+    lv_obj_set_x(ui_Label_Max_Speed_Number, 0);
     lv_obj_set_y(ui_Label_Max_Speed_Number, 6);
     lv_obj_set_align(ui_Label_Max_Speed_Number, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_Max_Speed_Number, "0.0");
@@ -645,7 +645,7 @@ void ui_Home_screen_init(void)
     ui_Label_Arrival_Time_Number1 = lv_label_create(ui_Group_Time);
     lv_obj_set_width(ui_Label_Arrival_Time_Number1, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_Arrival_Time_Number1, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_Arrival_Time_Number1, 2);
+    lv_obj_set_x(ui_Label_Arrival_Time_Number1, 0);
     lv_obj_set_y(ui_Label_Arrival_Time_Number1, 6);
     lv_obj_set_align(ui_Label_Arrival_Time_Number1, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_Arrival_Time_Number1, "00:05:36");
@@ -678,7 +678,7 @@ void ui_Home_screen_init(void)
     ui_Label_AT_Time = lv_label_create(ui_Group_AT);
     lv_obj_set_width(ui_Label_AT_Time, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label_AT_Time, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_Label_AT_Time, 2);
+    lv_obj_set_x(ui_Label_AT_Time, 0);
     lv_obj_set_y(ui_Label_AT_Time, 6);
     lv_obj_set_align(ui_Label_AT_Time, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_Label_AT_Time, "00:00:00");

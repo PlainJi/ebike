@@ -4,6 +4,7 @@
 // Project name: ebike_demo
 
 #include "ui_helpers.h"
+#include <stdio.h>
 
 void _ui_bar_set_property(lv_obj_t * target, int id, int val)
 {
@@ -75,6 +76,16 @@ void _ui_bar_increment(lv_obj_t * target, int val, int anm)
 {
     int old = lv_bar_get_value(target);
     lv_bar_set_value(target, old + val, anm);
+}
+
+void _lv_slider_set_value(void *obj, int32_t v) {
+    if ((lv_obj_t*)obj == ui_Slider_Speed) {
+        char temp[8] = {0};
+        sprintf(temp, "%02d", v/10);
+        lv_label_set_text(ui_Speed_Number_1, temp);
+        lv_label_set_text(ui_Speed_Number_2, temp);
+    }
+    lv_slider_set_value((lv_obj_t*)obj, v, LV_ANIM_ON);
 }
 
 void _ui_slider_increment(lv_obj_t * target, int val, int anm)
@@ -344,4 +355,42 @@ void _ui_switch_theme(int val)
 #endif
 }
 
+lv_anim_t *ui_animation(lv_obj_t *obj, int start, int stop, int duration, int playback_duration, \
+    int playback_delay, int repeat_delay, int repeat_cnt, lv_anim_exec_xcb_t cb) {
+    lv_anim_t a0;
+    lv_anim_init(&a0);
+    lv_anim_set_var(&a0, obj);
+    lv_anim_set_values(&a0, start, stop);
+    lv_anim_set_time(&a0, duration);
 
+    if (playback_duration>0) {
+        lv_anim_set_playback_time(&a0, playback_duration);
+        lv_anim_set_playback_delay(&a0, playback_delay);
+    }
+
+    lv_anim_set_repeat_count(&a0, repeat_cnt);
+    lv_anim_set_repeat_delay(&a0, repeat_delay);
+
+    lv_anim_set_path_cb(&a0, lv_anim_path_ease_in_out);
+    lv_anim_set_exec_cb(&a0, cb);
+
+    return lv_anim_start(&a0);
+}
+
+void ui_animation_for_slider(lv_obj_t *obj, int new_value, int time) {
+    int start = lv_slider_get_value(obj);
+
+    lv_anim_t a0;
+    lv_anim_init(&a0);
+    lv_anim_set_var(&a0, obj);
+    lv_anim_set_values(&a0, start, new_value);
+    lv_anim_set_time(&a0, time);
+
+	lv_anim_set_repeat_count(&a0, 0);
+	lv_anim_set_repeat_delay(&a0, 0);
+
+    lv_anim_set_path_cb(&a0, lv_anim_path_ease_in_out);
+    lv_anim_set_exec_cb(&a0, _lv_slider_set_value);
+
+    lv_anim_start(&a0);
+}

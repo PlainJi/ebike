@@ -48,6 +48,8 @@ void _ui_arc_increment(lv_obj_t * target, int val);
 
 void _ui_bar_increment(lv_obj_t * target, int val, int anm);
 
+void _lv_slider_set_value(void *obj, int32_t v);
+
 void _ui_slider_increment(lv_obj_t * target, int val, int anm);
 
 void _ui_keyboard_set_target(lv_obj_t * keyboard, lv_obj_t * textarea);
@@ -132,14 +134,14 @@ void _ui_slider_set_text_value(lv_obj_t * trg, lv_obj_t * src, const char * pref
 
 void _ui_checked_set_text_value(lv_obj_t * trg, lv_obj_t * src, const char * txt_on, const char * txt_off);
 
-void _ui_spinbox_step(lv_obj_t * target, int val)
-;
+void _ui_spinbox_step(lv_obj_t * target, int val);
 
+void _ui_switch_theme(int val);
 
-void _ui_switch_theme(int val)
-;
+lv_anim_t *ui_animation(lv_obj_t *obj, int start, int stop, int duration, int playback_duration, \
+    int playback_delay, int repeat_delay, int repeat_cnt, lv_anim_exec_xcb_t cb);
 
-
+void ui_animation_for_slider(lv_obj_t *obj, int new_value, int time);
 
 #ifdef __cplusplus
 } /*extern "C"*/
