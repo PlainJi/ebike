@@ -1,10 +1,16 @@
 #ifndef _DISPLAY_H_
 #define _DISPLAY_H_
 
-#include <Arduino_GFX_Library.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void display_init();
-void setBrightness(uint8_t value);
+void setBrightness(unsigned char value);
 void lvgl_init();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

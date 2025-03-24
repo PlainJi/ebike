@@ -52,6 +52,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Slider_Speed, -100);
     lv_obj_set_y(ui_Slider_Speed, -1);
     lv_obj_set_align(ui_Slider_Speed, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Slider_Speed, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_style_bg_color(ui_Slider_Speed, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Slider_Speed, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -71,6 +72,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_x(ui_Slider_Battery, -147);
     lv_obj_set_y(ui_Slider_Battery, 1);
     lv_obj_set_align(ui_Slider_Battery, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Slider_Battery, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_style_bg_color(ui_Slider_Battery, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Slider_Battery, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -1614,7 +1616,7 @@ void ui_Home_screen_init(void)
     lv_obj_set_style_bg_opa(ui_BTN_Settings, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_src(ui_BTN_Settings, &ui_img_icn_settings_png, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    lv_obj_add_event_cb(ui_Slider_Speed, ui_event_Slider_Speed, LV_EVENT_ALL, NULL);
+    //lv_obj_add_event_cb(ui_Slider_Speed, ui_event_Slider_Speed, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_BTN_BG1, ui_event_BTN_BG1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_BTN_BG2, ui_event_BTN_BG2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_BTN_BG3, ui_event_BTN_BG3, LV_EVENT_ALL, NULL);

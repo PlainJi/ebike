@@ -1,6 +1,7 @@
 #include "display.h"
 #include "touch.h"
 #include <lvgl.h>
+#include <Arduino_GFX_Library.h>
 
 //Arduino_GFX Setup for JC4827W543C
 #define SCREEN_WIDTH 480
@@ -39,8 +40,9 @@ void display_init() {
 }
 
 // value has to be between 0 and 255
-void setBrightness(uint8_t value)
+void setBrightness(unsigned char value)
 {
+  if (value < 10) value = 10;
   uint32_t duty = 4095 * value / 255;
   ledcWrite(LEDC_CHANNEL_0, duty);
 }

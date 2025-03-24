@@ -5,6 +5,7 @@
 
 #include "ui.h"
 #include "ui_helpers.h"
+#include "hw/display.h"
 
 ///////////////////// VARIABLES ////////////////////
 void Particle1_Animation(lv_obj_t * TargetObject, int delay);
@@ -735,9 +736,11 @@ void ui_event_Slider2(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
+    int val = lv_slider_get_value(ui_Slider2);
 
     if(event_code == LV_EVENT_VALUE_CHANGED) {
         _ui_slider_set_text_value(ui_Brightness_Percent, target, "", "%");
+        setBrightness((unsigned char)val);
     }
 }
 

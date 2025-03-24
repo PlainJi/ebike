@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <esp32-hal.h>
 #include "hw/display.h"
 #include "hw/sdcard.h"

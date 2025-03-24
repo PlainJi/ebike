@@ -51,7 +51,8 @@
         "typeinfo": "cpp",
         "ui.h": "c",
         "ui_helpers.h": "c",
-        "ui_comp.h": "c"
+        "ui_comp.h": "c",
+        "display.h": "c"
     },
     "cmake.ignoreCMakeListsMissing": true
 }

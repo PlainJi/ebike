@@ -124,7 +124,7 @@ void ui_Settings_screen_init(void)
     lv_obj_set_width(ui_Brightness_Label, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Brightness_Label, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_Brightness_Label, LV_ALIGN_TOP_MID);
-    lv_label_set_text(ui_Brightness_Label, "Volume");
+    lv_label_set_text(ui_Brightness_Label, "Level");
     lv_obj_set_style_text_color(ui_Brightness_Label, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_Brightness_Label, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Brightness_Label, &ui_font_Big, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -160,7 +160,8 @@ void ui_Settings_screen_init(void)
     lv_obj_clear_flag(ui_Volume_Off, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     ui_Slider2 = lv_slider_create(ui_Brightness_Group);
-    lv_slider_set_value(ui_Slider2, 50, LV_ANIM_OFF);
+    lv_slider_set_value(ui_Slider2, 250, LV_ANIM_OFF);
+    lv_slider_set_range(ui_Slider2, 0, 250);
     if(lv_slider_get_mode(ui_Slider2) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(ui_Slider2, 0, LV_ANIM_OFF);
     lv_obj_set_height(ui_Slider2, 10);
     lv_obj_set_width(ui_Slider2, lv_pct(76));
@@ -405,7 +406,7 @@ void ui_Settings_screen_init(void)
     lv_obj_set_style_bg_img_src(ui_BTN_Settings1, &ui_img_icn_x2_png, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_Volum_On, ui_event_Volum_On, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_Volume_Off, ui_event_Volume_Off, LV_EVENT_ALL, NULL);
+    //lv_obj_add_event_cb(ui_Volume_Off, ui_event_Volume_Off, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Slider2, ui_event_Slider2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_BTN_Settings1, ui_event_BTN_Settings1, LV_EVENT_ALL, NULL);
 
