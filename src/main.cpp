@@ -106,7 +106,7 @@ void task_gps(void *pvParameters) {
       // update speed
       if ((int)gnss_data.speed != last_speed) {
         last_speed = (int)gnss_data.speed;
-        ui_animation_for_slider(ui_Slider_Speed, (int)gnss_data.speed*10, 1000);
+        ui_animation_for_slider(ui_Slider_Speed, (int)gnss_data.speed*10, 250);
         lv_slider_set_value(ui_Slider_Battery, (int)gnss_data.speed, LV_ANIM_ON);
       }
 
@@ -174,6 +174,9 @@ void setup()
     lv_obj_add_flag(ui_Image_Sdcard_w, LV_OBJ_FLAG_HIDDEN);
   }
   gps_init();
+  //gps_config();
+  //while(1);
+
   aht_bmp_imu_init();
   ESP_LOGI("setup", "init finished.");
 

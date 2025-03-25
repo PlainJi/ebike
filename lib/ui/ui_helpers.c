@@ -378,12 +378,13 @@ lv_anim_t *ui_animation(lv_obj_t *obj, int start, int stop, int duration, int pl
 }
 
 void ui_animation_for_slider(lv_obj_t *obj, int new_value, int time) {
-    int start = lv_slider_get_value(obj);
+    static int last_value = 0;
+    // int start = lv_slider_get_value(obj);
 
     lv_anim_t a0;
     lv_anim_init(&a0);
     lv_anim_set_var(&a0, obj);
-    lv_anim_set_values(&a0, start, new_value);
+    lv_anim_set_values(&a0, last_value, new_value);
     lv_anim_set_time(&a0, time);
 
 	lv_anim_set_repeat_count(&a0, 0);
@@ -393,4 +394,6 @@ void ui_animation_for_slider(lv_obj_t *obj, int new_value, int time) {
     lv_anim_set_exec_cb(&a0, _lv_slider_set_value);
 
     lv_anim_start(&a0);
+
+    last_value = new_value;
 }

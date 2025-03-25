@@ -45,6 +45,15 @@
 // 14	差分站 ID	差分站 ID
 // 15	校验和	校验和（* 后的两位十六进制数）
 
+// $PCAS00*01\r\n					保存配置
+// $PCAS02,250*18\r\n				定位更新间隔250ms
+// $PCAS02,1000*2E\r\n				定位更新间隔1000ms
+// $PCAS03,1,0,0,0,1,0,0,0*02\r\n	打开GGA、RMC，其余关闭
+// $PCAS11,0*1D\r\n					便携模式
+// $PCAS11,1*1C\r\n					静态模式
+// $PCAS11,2*1F\r\n					步行模式
+// $PCAS11,3*1E\r\n					车载模式
+
 enum NMEAType{
   kNMEA_Invalid = 0,
   kNMEA_GGA = 1,
@@ -89,6 +98,7 @@ struct GNSSData {
 extern GNSSData gnss_data;
 
 void gps_init();
+void gps_config(void);
 void gps_update();
 void gps_print();
 

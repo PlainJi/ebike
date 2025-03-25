@@ -14,10 +14,10 @@ public:
     void addData(const ImuData& newData);
 
     // 检测是否静止
-    bool isStationary(double accThreshold = 10, double gyroThreshold = 10);
+    bool isStationary(double accThreshold = 2, double gyroThreshold = 2);
 
     // 检测是否运动
-    bool isMoving(double accThreshold = 10, double gyroThreshold = 10);
+    bool isMoving(double accThreshold = 2, double gyroThreshold = 2);
 
 private:
     static const int WINDOW_SIZE = 2; // 滑动窗口大小

@@ -25,6 +25,16 @@ void gps_init() {
   ESP_LOGI("gps_init", "GPS 初始化完成，等待数据...");
 }
 
+void gps_config(void) {
+  const char *interval_250 = "$PCAS02,250*18\r\n";
+  const char *save_config = "$PCAS00*01\r\n";
+
+  gpsSerial.write(interval_250, sizeof(interval_250));
+  vTaskDelay(1000 / portTICK_PERIOD_MS);
+  gpsSerial.write(save_config, sizeof(save_config));
+  vTaskDelay(1000 / portTICK_PERIOD_MS);
+}
+
 // 将度分格式（DDMM.MMMMM）转换为十进制度格式（DD.DDDDD）
 double convertToDecimalDegrees(double degMin, char direction) {
   double degrees = static_cast<int>(degMin / 100); // 提取度
